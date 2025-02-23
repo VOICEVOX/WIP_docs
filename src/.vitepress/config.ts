@@ -25,7 +25,7 @@ export default defineConfig({
       {
         text: "エンジン",
         link: "/engine",
-        items: [{ text: "Markdownテスト", link: "/engine/page01" }],
+        items: [{ text: "テスト1", link: "/engine/page01" }],
       },
       {
         text: "コア",
