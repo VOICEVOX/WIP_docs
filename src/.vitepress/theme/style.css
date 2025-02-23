@@ -10,7 +10,7 @@
   --vp-layout-top-height: 3rem;
 }
 
-/* ちょっと小さいので広げる。 */
+/* Material Design Iconsのアイコンは他と比べてちょっと小さいので広げる。 */
 .VPSocialLink > svg:not(#dummy) {
   width: 26px;
   height: 26px;
