@@ -3,15 +3,15 @@
    * Voicevoxのブランドカラーを基準に、明るさを良い感じに調整する。
    * #a5d4ad = oklch(82.62% 0.0732 149.64)
    */
-  --vp-c-brand-1: oklch(75% 0.0732 149.64);
-  --vp-c-brand-2: oklch(60% 0.06 149.64);
-  --vp-c-brand-3: oklch(45% 0.047 149.64);
+  /* --vp-c-brand-1: oklch(75% 0.0732 149.64); */
+  /* --vp-c-brand-2: oklch(60% 0.06 149.64); */
+  /* --vp-c-brand-3: oklch(45% 0.047 149.64); */
 
   --vp-layout-top-height: 3rem;
 }
 
 /* Material Design Iconsのアイコンは他と比べてちょっと小さいので広げる。 */
 .VPSocialLink > svg:not(#dummy) {
-  width: 26px;
-  height: 26px;
+  /* width: 26px; */
+  /* height: 26px; */
 }

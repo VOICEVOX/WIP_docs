@@ -5,7 +5,7 @@
 
 ## 動かす
 
-```
+```bash
 pnpm run dev
 ```
 
