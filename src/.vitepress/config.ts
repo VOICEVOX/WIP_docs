@@ -15,8 +15,8 @@ export default defineConfig({
   title: "VOICEVOX Docs",
   description: "無料で使える中品質なテキスト読み上げソフトウェア。",
   lang: "ja-JP",
-  base: "/voicevox_WIP_docs/",
-  head: [["link", { rel: "icon", href: "/voicevox_WIP_docs/favicon.ico" }]],
+  base: "/WIP_docs/",
+  head: [["link", { rel: "icon", href: "/WIP_docs/favicon.ico" }]],
   themeConfig: {
     logo: "/favicon-32x32.png",
     nav: [{ text: "Home", link: "/" }],
