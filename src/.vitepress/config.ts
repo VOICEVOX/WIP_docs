@@ -23,8 +23,14 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: "セクション1",
-        items: [{ text: "テスト1", link: "/page01" }],
+        text: "エンジン",
+        link: "/engine",
+        items: [{ text: "Markdownテスト", link: "/engine/page01" }],
+      },
+      {
+        text: "コア",
+        link: "/core",
+        items: [{ text: "テスト1", link: "/core/page01" }],
       },
       { text: "チーム", link: "/team" },
     ],
@@ -38,5 +44,14 @@ export default defineConfig({
         link: "https://voicevox.hiroshiba.jp",
       },
     ],
+  },
+  markdown: {
+    container: {
+      tipLabel: "Tips",
+      warningLabel: "注意",
+      dangerLabel: "警告",
+      infoLabel: "情報",
+      detailsLabel: "詳細",
+    },
   },
 });
