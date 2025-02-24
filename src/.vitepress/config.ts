@@ -17,6 +17,7 @@ export default defineConfig({
   lang: "ja-JP",
   base: "/WIP_docs/",
   head: [["link", { rel: "icon", href: "/WIP_docs/favicon.ico" }]],
+  cleanUrls: true,
   themeConfig: {
     logo: "/favicon-32x32.png",
     nav: [
