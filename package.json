@@ -1,6 +1,5 @@
 {
   "name": "docs",
-  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,8 +9,6 @@
     "lint": "markdownlint '**/*.md' --ignore node_modules && prettier --check '**/*.md'",
     "fmt": "prettier --write '**/*.md'"
   },
-  "keywords": [],
-  "author": "",
   "license": "MIT",
   "packageManager": "pnpm@10.4.1",
   "devDependencies": {
