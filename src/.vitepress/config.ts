@@ -1,14 +1,4 @@
 import { defineConfig } from "vitepress";
-import fs from "node:fs";
-
-const getMdiSvg = (name: string) => {
-  return {
-    svg: fs.readFileSync(
-      `${import.meta.dirname}/../../node_modules/@material-design-icons/svg/filled/${name}.svg`,
-      "utf-8",
-    ),
-  };
-};
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -47,20 +37,6 @@ export default defineConfig({
     socialLinks: [
       { icon: "github", link: "https://github.com/voicevox" },
       { icon: "twitter", link: "https://twitter.com/voicevox_pj" },
-      {
-        icon: getMdiSvg("home"),
-
-        link: "https://voicevox.hiroshiba.jp",
-      },
     ],
-  },
-  markdown: {
-    container: {
-      tipLabel: "Tips",
-      warningLabel: "注意",
-      dangerLabel: "警告",
-      infoLabel: "情報",
-      detailsLabel: "詳細",
-    },
   },
 });
