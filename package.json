@@ -6,14 +6,13 @@
     "dev": "vitepress dev src",
     "build": "vitepress build src",
     "preview": "vitepress preview src",
-    "lint": "markdownlint '**/*.md' --ignore node_modules && prettier --check '**/*.md'",
-    "fmt": "prettier --write '**/*.md'"
+    "lint": "prettier --check '**/*.{md,ts,css,vue}'",
+    "fmt": "prettier --write '**/*.{md,ts,css,vue}'"
   },
   "license": "MIT",
   "packageManager": "pnpm@10.4.1",
   "devDependencies": {
     "@types/node": "^22.13.5",
-    "markdownlint-cli": "^0.44.0",
     "prettier": "^3.5.2",
     "vitepress": "2.0.0-alpha.2",
     "vue": "^3.5.13"
