@@ -6,8 +6,8 @@
     "dev": "vitepress dev src",
     "build": "vitepress build src",
     "preview": "vitepress preview src",
-    "lint": "prettier --check '**/*.{md,ts,css,vue}'",
-    "fmt": "prettier --write '**/*.{md,ts,css,vue}'"
+    "lint": "prettier --check src",
+    "fmt": "prettier --write src"
   },
   "license": "MIT",
   "packageManager": "pnpm@10.4.1",
