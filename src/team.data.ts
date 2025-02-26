@@ -43,11 +43,52 @@ const team: Team = [
           twitter: "https://twitter.com/hiho_karuta",
         },
       },
+      "y-chan": {
+        name: "Yちゃん",
+        role: "TODO",
+        links: {
+          twitter: "https://twitter.com/y_chan_dev",
+        },
+      },
+      qryxip: {
+        name: "qryxip",
+        role: "TODO",
+        links: {},
+      },
     },
   },
   {
     name: "レビュワー",
     members: {
+      aoirint: {
+        name: "aoirint",
+        role: "TODO",
+        links: {
+          twitter: "https://twitter.com/aoirint",
+          mastodon: "https://mstdn.aoirint.com/@aoirint",
+          home: "https://aoirint.com/",
+        },
+      },
+      Oyaki122: {
+        name: "Oyaki",
+        role: "TODO",
+        links: {},
+      },
+      PickledChair: {
+        name: "Suitcase",
+        role: "TODO",
+        links: {
+          twitter: "https://twitter.com/pickled_chair",
+          home: "https://pickledchair.com/",
+        },
+      },
+      "segu-g": {
+        name: "Segu",
+        role: "TODO",
+        links: {
+          twitter: "https://twitter.com/SeguSegment",
+        },
+      },
       "sevenc-nanashi": {
         name: "名無し｡",
         role: "TODO",
@@ -55,6 +96,22 @@ const team: Team = [
           twitter: "https://twitter.com/sevenc_nanashi",
           misskey: "https://voskey.icalo.net/@sevenc_nanashi",
           niconico: "https://www.nicovideo.jp/user/90184991",
+          home: "https://sevenc7c.com",
+        },
+      },
+      "takana-v": {
+        name: "takana-v",
+        role: "TODO",
+        links: {
+          twitter: "https://twitter.com/taka7n",
+        },
+      },
+      yamachu: {
+        name: "ちゅうこ",
+        role: "TODO",
+        links: {
+          twitter: "https://twitter.com/y_chu5",
+          home: "https://teitoku-window.hatenablog.com/",
         },
       },
     },
@@ -65,16 +122,10 @@ const homeIconSvgRaw = await fs.readFile(
   `${import.meta.dirname}/../node_modules/@material-design-icons/svg/filled/home.svg`,
   "utf-8",
 );
-const homeIconSvg = homeIconSvgRaw.replace("0 0 24 24", "4 4 16 16");
-// {
-//   avatar: 'https://www.github.com/yyx990803.png',
-//   name: 'Evan You',
-//   title: 'Creator',
-//   links: [
-//     { icon: 'github', link: 'https://github.com/yyx990803' },
-//     { icon: 'twitter', link: 'https://twitter.com/youyuxi' }
-//   ]
-// },
+
+// 余白を削って良い感じにする。
+const homeIconSvg = homeIconSvgRaw.replace("0 0 24 24", "3 3 18 18");
+
 type VPTeamMemberData = {
   avatar: string;
   name: string;
