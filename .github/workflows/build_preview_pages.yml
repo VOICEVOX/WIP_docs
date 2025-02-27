@@ -31,9 +31,23 @@ jobs:
         run: |
           pnpm install
 
+      - name: Determine base
+        uses: actions/github-script@v4
+        id: determine_base
+        with:
+          script: |
+            // Vitepressはbaseを相対パスにできない（https://github.com/vuejs/vitepress/issues/3057）ため、
+            // ここでbaseを決定する。
+            // ブランチの時は/preview-pages/preview/docs/branch-:name、
+            // PRの時は/preview-pages/preview/docs/pr-:numberにビルドする。
+            const branch = context.payload.pull_request?.head.ref || context.ref.replace('refs/heads/', '');
+            const number = context.payload.pull_request?.number || '';
+            const targetPath = number ? `pr-${number}` : `branch-${branch}`;
+            core.setOutput('base', `/preview-pages/preview/docs/${targetPath}/`);
+
       - name: Build
         run: |
-          pnpm run build --base ./
+          pnpm run build --base ${{ steps.determine_base.outputs.base }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
