@@ -43,7 +43,7 @@ jobs:
             const branch = github.context.payload.pull_request?.head.ref || github.context.ref.replace('refs/heads/', '');
             const number = github.context.payload.pull_request?.number || '';
             const targetPath = number ? `pr-${number}` : `branch-${branch}`;
-            core.setOutput('base', `/preview-pages/preview/docs/${targetPath}`);
+            core.setOutput('base', `/preview-pages/preview/docs/${targetPath}/`);
 
       - name: Build
         run: |
