@@ -12,11 +12,11 @@ VOICEVOX CORE Downloaderは環境に合わせてそれらをダウンロード�
 
 | 名称                   | 展開先                           | 説明                                                                |
 | :--------------------- | :------------------------------- | :------------------------------------------------------------------ |
-| `c-api`                | `{output}`/c_api/                | VOICEVOX CORE C APIのビルド済みバイナリおよびその利用規約ファイル等 |
-| `onnxruntime`          | `{output}`/onnxruntime/          | （VOICEVOX）ONNX Runtime                                            |
-| `additional-libraries` | `{output}`/additional_libraries/ | `--devices`で指定したDirectMLやCUDA                                 |
-| `models`               | `{output}`/models/               | VOICEVOX音声モデル（VVMファイル）                                   |
-| `dict`                 | `{output}`/dict/                 | Open JTalkのシステム辞書                                            |
+| `c-api`                | `{output}/c_api/`                | VOICEVOX CORE C APIのビルド済みバイナリおよびその利用規約ファイル等 |
+| `onnxruntime`          | `{output}/onnxruntime/`          | （VOICEVOX）ONNX Runtime                                            |
+| `additional-libraries` | `{output}/additional_libraries/` | `--devices`で指定したDirectMLやCUDA                                 |
+| `models`               | `{output}/models/`               | VOICEVOX音声モデル（VVMファイル）                                   |
+| `dict`                 | `{output}/dict/`                 | Open JTalkのシステム辞書                                            |
 
 `{output}`は`-o, --output`で指定したディレクトリで、デフォルトは`./voicevox_core/`です。
 
