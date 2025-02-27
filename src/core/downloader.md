@@ -20,7 +20,7 @@ VOICEVOX CORE Downloaderは環境に合わせてそれらをダウンロード�
 
 `{output}`は`-o, --output`で指定したディレクトリで、デフォルトは`./voicevox_core/`です。
 
-# ダウンローダーの入手
+## ダウンローダーの入手
 
 ### Windows の場合
 
@@ -48,9 +48,9 @@ curl -sSfL https://github.com/VOICEVOX/voicevox_core/releases/latest/download/${
 chmod +x download
 ```
 
-# ダウンローダーの使い方
+## ダウンローダーの使い方
 
-## デフォルト（CPU 版）をダウンロードする場合 {#cpu}
+### デフォルト（CPU 版）をダウンロードする場合 {#cpu}
 
 ```
 download
@@ -62,19 +62,19 @@ download
 download --devices cpu
 ```
 
-## DirectML 版をダウンロードする場合 {#directml}
+### DirectML 版をダウンロードする場合 {#directml}
 
 ```
 download --devices directml
 ```
 
-## CUDA 版をダウンロードする場合 {#cuda}
+### CUDA 版をダウンロードする場合 {#cuda}
 
 ```
 download --devices cuda
 ```
 
-## その他詳細なオプションを指定したい場合 {#help}
+### その他詳細なオプションを指定したい場合 {#help}
 
 スクリプトにヘルプ表示機能があります。
 以下のようにしてヘルプを表示できます。
