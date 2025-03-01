@@ -19,7 +19,7 @@ export default defineConfig({
     sidebar: {
       "/": [
         { text: "全体構成", link: "/architecture" },
-        { text: "チーム", link: "/team" }
+        { text: "チーム", link: "/team" },
       ],
       "/engine": [
         {
