@@ -10,10 +10,13 @@ export default defineConfig({
   cleanUrls: true,
   themeConfig: {
     logo: "/favicon-32x32.png",
+
+    outlineTitle: "目次",
+
     nav: [
       { text: "ホーム", link: "/" },
-      { text: "エンジン", link: "/engine" },
-      { text: "コア", link: "/core" },
+      { text: "エンジン", link: "/engine/" },
+      { text: "コア", link: "/core/" },
     ],
 
     sidebar: {
@@ -21,18 +24,21 @@ export default defineConfig({
         { text: "全体構成", link: "/architecture" },
         { text: "チーム", link: "/team" },
       ],
-      "/engine": [
+      "/engine/": [
         {
           text: "エンジン",
-          link: "/engine",
+          link: "/engine/",
           items: [{ text: "テスト1", link: "/engine/page01" }],
         },
       ],
       "/core/": [
         {
           text: "コア",
-          link: "/core",
-          items: [{ text: "テスト1", link: "/core/page01" }],
+          link: "/core/",
+          items: [
+            { text: "テスト1", link: "/core/page01" },
+            { text: "ダウンローダー", link: "/core/downloader" },
+          ],
         },
       ],
     },
