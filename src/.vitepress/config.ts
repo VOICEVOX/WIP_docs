@@ -17,6 +17,10 @@ export default defineConfig({
     ],
 
     sidebar: {
+      "/": [
+        { text: "全体構成", link: "/architecture" },
+        { text: "チーム", link: "/team" }
+      ],
       "/engine": [
         {
           text: "エンジン",
@@ -31,7 +35,6 @@ export default defineConfig({
           items: [{ text: "テスト1", link: "/core/page01" }],
         },
       ],
-      "/": [{ text: "チーム", link: "/team" }],
     },
 
     socialLinks: [
