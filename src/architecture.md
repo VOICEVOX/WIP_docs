@@ -1,5 +1,9 @@
 # 全体構成
 
+<!-- 修正時は全体向けとエディタのドキュメントも要修正 -->
+<!-- https://github.com/VOICEVOX/.github/blob/main/profile/README.md -->
+<!-- https://github.com/VOICEVOX/voicevox/blob/main/docs/%E5%85%A8%E4%BD%93%E6%A7%8B%E6%88%90.md -->
+
 ## OSS 版と製品版の違い
 
 オープンソースとして公開されている VOICEVOX（OSS 版 VOICEVOX）と、
@@ -16,8 +20,6 @@
 <center>
 <img src="./architecture/OSS版と製品版の違い.svg" width="320">
 </center>
-<!-- 修正時は全体向け側のドキュメントも要修正 -->
-<!-- https://github.com/VOICEVOX/.github/blob/main/profile/README.md -->
 
 ## 構成
 
@@ -26,8 +28,6 @@ VOICEVOX は役割に応じた 3 つのモジュール「エディター」「�
 <center>
 <img src="./architecture/構成.svg" width="480">
 </center>
-<!-- 修正時はエディタ側のドキュメントも要修正 -->
-<!-- https://github.com/VOICEVOX/.github/blob/main/profile/README.md -->
 
 - エディター
   - GUI を表示するためのモジュールで、アプリケーションの形で提供しています
