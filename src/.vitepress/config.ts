@@ -6,7 +6,11 @@ export default defineConfig({
   description: "無料で使える中品質なテキスト読み上げソフトウェア。",
   lang: "ja-JP",
   base: "/WIP_docs/",
-  head: [["link", { rel: "icon", href: "/WIP_docs/favicon.ico" }]],
+  head: [
+    ["meta", { name: "theme-color", content: "#a5d4ad" }],
+    ["meta", { name: "robots", content: "noindex" }],
+    ["link", { rel: "icon", href: "/WIP_docs/favicon.ico" }],
+  ],
   cleanUrls: true,
   themeConfig: {
     logo: "/favicon-32x32.png",
