@@ -16,19 +16,94 @@ import { format } from "prettier";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { createPatch } from "diff";
 
-const help = process.argv.includes("--help");
+async function main() {
+  const { mode, verbose } = parseArgs();
+  console.log(
+    `Mode: ${mode === "check" ? styleText("green", "Check") : styleText("red", "Write")}${
+      verbose ? " (Verbose)" : ""
+    }`,
+  );
+  let changedCount = 0;
+  for await (const filePath of glob("./src/**/*.md")) {
+    console.log(`${filePath}:`);
+    const source = await readFile(filePath, "utf8");
 
-const check = process.argv.includes("--check");
-const write = process.argv.includes("--write");
-const verbose = process.argv.includes("--verbose");
+    const result = await formatMarkdown(source);
+    if (source !== result) {
+      if (mode === "check") {
+        console.log(styleText("red", "  Needs formatting"));
+      } else {
+        await writeFile(filePath, result);
+        console.log(styleText("green", "  Formatted"));
+      }
 
-if (help || (!check && !write)) {
-  console.log(`Usage: tools/format.ts [--check|--write] [--verbose]`);
-  process.exit(0);
+      if (verbose) {
+        printDiff(filePath, source, result);
+      }
+      changedCount++;
+    } else {
+      console.log(styleText("gray", "  No changes"));
+    }
+  }
+
+  if (mode === "check") {
+    console.log(`${changedCount} files need formatting`);
+    if (changedCount > 0) {
+      throw new Error("Some files need formatting");
+    }
+  } else {
+    console.log(`Formatted ${changedCount} files`);
+  }
 }
 
-if (check && write) {
-  throw new Error("Cannot use both --check and --write");
+function parseArgs() {
+  const help = process.argv.includes("--help");
+
+  const check = process.argv.includes("--check");
+  const write = process.argv.includes("--write");
+  const verbose = process.argv.includes("--verbose");
+
+  if (help || (!check && !write)) {
+    console.log(`Usage: tools/format.ts [--check|--write] [--verbose]`);
+    process.exit(0);
+  }
+
+  if (check && write) {
+    throw new Error("Cannot use both --check and --write");
+  }
+
+  return { mode: check ? "check" : "write", verbose };
+}
+
+function dedent(source: string): string {
+  const lines = source.split("\n");
+  const indent = lines
+    .filter((line) => line.trim() !== "")
+    .map((line) => line.match(/^\s*/)![0].length)
+    .reduce((a, b) => Math.min(a, b), Infinity);
+  return lines.map((line) => line.slice(indent)).join("\n");
+}
+
+async function formatVueLike(segment: string): Promise<string> {
+  if (segment.trimStart().startsWith("<script")) {
+    // scriptっぽい場合：そのまま整形
+    const base = await format(segment, {
+      parser: "vue",
+    });
+    return dedent(base).trim();
+  } else {
+    const trimLinePattern = /^\n+|\n+$/g;
+    // scriptでない場合：templateタグで囲んで整形した後に、templateタグを取り除いて先頭のインデントを取り除く
+    const base = await format(`<template>${segment}</template>`, {
+      parser: "vue",
+    });
+    return dedent(
+      base
+        .replace(trimLinePattern, "")
+        .slice("<template>".length, -"</template>".length)
+        .replace(trimLinePattern, ""),
+    ).trim();
+  }
 }
 
 type Node = {
@@ -46,63 +121,20 @@ type HtmlNode = Node & {
   type: "html";
 };
 
-const trimLinePattern = /^\n+|\n+$/g;
-const dedent = (source: string): string => {
-  const lines = source.split("\n");
-  const indent = lines
-    .filter((line) => line.trim() !== "")
-    .map((line) => line.match(/^\s*/)![0].length)
-    .reduce((a, b) => Math.min(a, b), Infinity);
-  return lines.map((line) => line.slice(indent)).join("\n");
-};
-const formatVueLike = async (segment: string): Promise<string> => {
-  if (segment.trimStart().startsWith("<script")) {
-    return await format(segment, {
-      parser: "vue",
-    });
-  } else {
-    const base = await format(`<template>${segment}</template>`, {
-      parser: "vue",
-    });
-    return dedent(
-      base
-        .replace(trimLinePattern, "")
-        .slice("<template>".length, -"</template>".length)
-        .replace(trimLinePattern, ""),
-    ).trim();
-  }
-};
-
-const formatMarkdown = async (
-  source: string,
-  file: string,
-): Promise<string> => {
+async function formatMarkdown(source: string): Promise<string> {
   let formatted = await format(source, {
     parser: "markdown",
-    filepath: file,
   });
   const ast = fromMarkdown(formatted);
 
-  const htmlNodes: HtmlNode[] = [];
-
-  const visit = (node: Node) => {
-    if (node.type === "html") {
-      htmlNodes.push(node as HtmlNode);
-    }
-    if ("children" in node) {
-      for (const child of node.children as Node[]) {
-        visit(child);
-      }
-    }
-  };
-
-  visit(ast as Node);
+  const htmlNodes = findHtmlNodes(ast as Node);
 
   // 処理を楽にするために、後ろから処理する
   htmlNodes.sort((a, b) => {
     return b.position.start.offset - a.position.start.offset;
   });
 
+  // HTML部分を切り取って整形して、元のMarkdownの部分を置き換える
   for (const node of htmlNodes) {
     const nodeContent = formatted.slice(
       node.position.start.offset,
@@ -117,46 +149,47 @@ const formatMarkdown = async (
   }
 
   return formatted;
-};
+}
 
-console.log(
-  `Mode: ${check ? styleText("green", "Check") : styleText("red", "Write")}`,
-);
-let count = 0;
-for await (const file of glob("./src/**/*.md")) {
-  console.log(`${file}:`);
-  const source = await readFile(file, "utf8");
+function findHtmlNodes(node: Node): HtmlNode[] {
+  const htmlNodes: HtmlNode[] = [];
 
-  const result = await formatMarkdown(source, file);
-  if (source !== result) {
-    if (check) {
-      console.log(styleText("red", "  Needs formatting"));
-    } else {
-      await writeFile(file, result);
-      console.log(styleText("green", "  Formatted"));
+  const visit = (node: Node) => {
+    if (node.type === "html") {
+      htmlNodes.push(node as HtmlNode);
     }
-
-    if (verbose) {
-      const diff = createPatch(file, source, result);
-      console.log("=".repeat(80));
-      for (const line of diff.split("\n")) {
-        if (line.startsWith("-")) {
-          console.log(styleText("red", line));
-        } else if (line.startsWith("+")) {
-          console.log(styleText("green", line));
-        } else {
-          console.log(styleText("gray", line));
-        }
+    if ("children" in node) {
+      for (const child of node.children as Node[]) {
+        visit(child);
       }
-      console.log("=".repeat(80));
     }
-    count++;
-  } else {
-    console.log(styleText("gray", "  No changes"));
-  }
+  };
+
+  visit(node);
+
+  return htmlNodes;
 }
 
-console.log(`Formatted ${count} files.`);
-if (check && count > 0) {
-  throw new Error("Some files need formatting");
+function printDiff(filePath: string, source: string, result: string) {
+  // patchの先頭のIndexとかを削除。
+  const diff = createPatch(filePath, source, result).replace(
+    /[\s\S]+?(?=@@)/,
+    "",
+  );
+  console.log("=".repeat(80));
+  for (const line of diff.split("\n")) {
+    if (line.startsWith("-")) {
+      console.log(styleText("red", line));
+    } else if (line.startsWith("+")) {
+      console.log(styleText("green", line));
+    } else {
+      console.log(styleText("gray", line));
+    }
+  }
+  console.log("=".repeat(80));
 }
+
+main().catch((e) => {
+  console.error(styleText("red", String(e)));
+  process.exit(1);
+});
