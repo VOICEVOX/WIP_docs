@@ -1,20 +1,3 @@
 :root {
   --vp-layout-top-height: 3rem;
-
-  /*
-   * テーマを決めるときは以下のドキュメントを参照：
-   * https://github.com/vuejs/vitepress/blob/1a2f81de4d6549dd1adf86ae131d1a861158bd2d/src/client/theme-default/styles/vars.css#L18-L44
-   *
-   * テーマはVoicevoxのブランドカラーを基調とし、良い感じのコントラストになるように調整する。
-   * メモ：#a5d4ad = oklch(82.62% 0.0732 149.64)
-   */
-
-  --vp-c-brand-1: var(--vp-c-green-1);
-  --vp-c-brand-2: var(--vp-c-green-2);
-  --vp-c-brand-3: var(--vp-c-green-3);
-  --vp-c-brand-soft: var(--vp-c-green-soft);
-  /* --vp-c-brand-1: oklch(60% 0.07 149.64); */
-  /* --vp-c-brand-2: oklch(70% 0.07 149.64); */
-  /* --vp-c-brand-3: oklch(80% 0.07 149.64); */
-  /* --vp-c-brand-soft: oklch(80% 0.07 149.64 / 0.14); */
 }
