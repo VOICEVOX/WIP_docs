@@ -7,8 +7,10 @@ export default defineConfig({
   lang: "ja-JP",
   base: "/WIP_docs/",
   head: [
-    ["meta", { name: "theme-color", content: "#a5d4ad" }],
+    // 公開時はnoindexを削除する
     ["meta", { name: "robots", content: "noindex" }],
+
+    ["meta", { name: "theme-color", content: "#a5d4ad" }],
     ["link", { rel: "icon", href: "/WIP_docs/favicon.ico" }],
   ],
   cleanUrls: true,
