@@ -12,8 +12,7 @@ export default defineConfig({
     logo: "/favicon-32x32.png",
 
     outlineTitle: "目次",
-    returnToTopLabel: "一番上へ戻る",
-    skipToContentLabel: "コンテンツへスキップ",
+    returnToTopLabel: "最上部に戻る",
     sidebarMenuLabel: "メニュー",
     darkModeSwitchLabel: "テーマ",
     lightModeSwitchTitle: "ライトテーマに切り替える",
