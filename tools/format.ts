@@ -98,7 +98,7 @@ const formatMarkdown = async (
 
   visit(ast as Node);
 
-  // 処理が楽なので逆順に並べる。
+  // 処理を楽にするために、後ろから処理する
   htmlNodes.sort((a, b) => {
     return b.position.start.offset - a.position.start.offset;
   });
