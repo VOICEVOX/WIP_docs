@@ -4,6 +4,7 @@ import type { Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 import WipHeader from "./WipHeader.vue";
 import "./style.css";
+import "./fonts.css";
 
 export default {
   extends: DefaultTheme,
