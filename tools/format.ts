@@ -122,10 +122,10 @@ type HtmlNode = Node & {
 };
 
 async function formatMarkdown(source: string): Promise<string> {
-  let formatted = await format(source, {
+  const baseFormatted = await format(source, {
     parser: "markdown",
   });
-  const ast = fromMarkdown(formatted);
+  const ast = fromMarkdown(baseFormatted);
 
   const htmlNodes = findHtmlNodes(ast as Node);
 
@@ -135,20 +135,21 @@ async function formatMarkdown(source: string): Promise<string> {
   });
 
   // HTML部分を切り取って整形して、元のMarkdownの部分を置き換える
+  let replaced = baseFormatted;
   for (const node of htmlNodes) {
-    const nodeContent = formatted.slice(
+    const nodeContent = replaced.slice(
       node.position.start.offset,
       node.position.end.offset,
     );
     const formattedNode = await formatVueLike(nodeContent);
 
-    formatted =
-      formatted.slice(0, node.position.start.offset) +
+    replaced =
+      replaced.slice(0, node.position.start.offset) +
       formattedNode +
-      formatted.slice(node.position.end.offset);
+      replaced.slice(node.position.end.offset);
   }
 
-  return formatted;
+  return replaced;
 }
 
 function findHtmlNodes(node: Node): HtmlNode[] {
