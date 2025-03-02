@@ -16,6 +16,9 @@ pnpm run lint
 pnpm run fmt
 ```
 
+このリポジトリでは、Markdownファイルに対して特殊なフォーマットを適用しています。
+詳細は`./tools/format.ts`を参照してください。
+
 ## ライセンス
 
 [LICENSE](LICENSE) を参照してください。

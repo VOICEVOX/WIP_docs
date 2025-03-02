@@ -1,9 +1,20 @@
+/**
+ * Vitepressで使われているVue入りMarkdownを整形するスクリプト。
+ * 具体的には以下の処理を行う：
+ * - Markdownファイル全体をPrettierで整形する
+ * - mdast-util-from-markdownを使ってHTML部分を抽出し、Vueの部分だけPrettierで整形する
+ *   - この時、Vueの部分は`<script>`タグでは無い限りは`<template>`タグで囲んであるものとして扱う
+ *
+ * 使い方:
+ * - `--check`：ファイルが整形されているかチェックする
+ * - `--write`：ファイルを整形する
+ * - `--verbose`：差分を表示する
+ */
 import { glob, readFile, writeFile } from "node:fs/promises";
 import { styleText } from "node:util";
 import { format } from "prettier";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { createPatch } from "diff";
-import type { Node } from "mdast";
 
 const help = process.argv.includes("--help");
 
@@ -20,6 +31,17 @@ if (check && write) {
   throw new Error("Cannot use both --check and --write");
 }
 
+type Node = {
+  type: string;
+  position: {
+    start: {
+      offset: number;
+    };
+    end: {
+      offset: number;
+    };
+  };
+};
 type HtmlNode = Node & {
   type: "html";
 };
@@ -74,30 +96,24 @@ const formatMarkdown = async (
     }
   };
 
-  visit(ast);
+  visit(ast as Node);
 
   // 処理が楽なので逆順に並べる。
   htmlNodes.sort((a, b) => {
-    if (
-      a.position?.start?.offset == null ||
-      b.position?.start?.offset == null
-    ) {
-      throw new Error("Node has no position");
-    }
     return b.position.start.offset - a.position.start.offset;
   });
 
   for (const node of htmlNodes) {
     const nodeContent = formatted.slice(
-      node.position?.start?.offset,
-      node.position?.end?.offset,
+      node.position.start.offset,
+      node.position.end.offset,
     );
     const formattedNode = await formatVueLike(nodeContent);
 
     formatted =
-      formatted.slice(0, node.position?.start?.offset) +
+      formatted.slice(0, node.position.start.offset) +
       formattedNode +
-      formatted.slice(node.position?.end?.offset);
+      formatted.slice(node.position.end.offset);
   }
 
   return formatted;
