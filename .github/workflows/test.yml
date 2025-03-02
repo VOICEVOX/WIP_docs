@@ -27,7 +27,7 @@ jobs:
 
       - name: Lint
         run: |
-          pnpm run lint
+          pnpm run lint --verbose
 
       - name: Test Build
         run: |
