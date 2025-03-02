@@ -12,6 +12,16 @@ export default defineConfig({
     logo: "/favicon-32x32.png",
 
     outlineTitle: "目次",
+    returnToTopLabel: "一番上へ戻る",
+    skipToContentLabel: "コンテンツへスキップ",
+    sidebarMenuLabel: "メニュー",
+    darkModeSwitchLabel: "テーマ",
+    lightModeSwitchTitle: "ライトテーマに切り替える",
+    darkModeSwitchTitle: "ダークテーマに切り替える",
+    docFooter: {
+      next: "次のページ",
+      prev: "前のページ",
+    },
 
     nav: [
       { text: "ホーム", link: "/" },
