@@ -16,34 +16,33 @@ import { format } from "prettier";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { createPatch } from "diff";
 
+const { mode, verbose } = parseArgs();
+main().catch((e) => {
+  console.error(styleText("red", String(e)));
+  process.exit(1);
+});
+
 async function main() {
-  const { mode, verbose } = parseArgs();
   console.log(
     `Mode: ${mode === "check" ? styleText("green", "Check") : styleText("red", "Write")}${
       verbose ? " (Verbose)" : ""
     }`,
   );
+
   let changedCount = 0;
   for await (const filePath of glob("./src/**/*.md")) {
-    console.log(`${filePath}:`);
-    const source = await readFile(filePath, "utf8");
+    process.stdout.write(`${filePath}: `);
 
+    const source = await readFile(filePath, "utf8");
     const result = await formatMarkdown(source);
     if (source !== result) {
-      if (mode === "check") {
-        console.log(styleText("red", "  Needs formatting"));
-      } else {
-        await writeFile(filePath, result);
-        console.log(styleText("green", "  Formatted"));
-      }
-
-      if (verbose) {
-        printDiff(filePath, source, result);
-      }
       changedCount++;
-    } else {
-      console.log(styleText("gray", "  No changes"));
+      if (mode === "write") {
+        await writeFile(filePath, result);
+      }
     }
+
+    printResult(filePath, source, result);
   }
 
   if (mode === "check") {
@@ -121,6 +120,25 @@ type HtmlNode = Node & {
   type: "html";
 };
 
+function findHtmlNodes(node: Node): HtmlNode[] {
+  const htmlNodes: HtmlNode[] = [];
+
+  const visit = (node: Node) => {
+    if (node.type === "html") {
+      htmlNodes.push(node as HtmlNode);
+    }
+    if ("children" in node) {
+      for (const child of node.children as Node[]) {
+        visit(child);
+      }
+    }
+  };
+
+  visit(node);
+
+  return htmlNodes;
+}
+
 async function formatMarkdown(source: string): Promise<string> {
   const baseFormatted = await format(source, {
     parser: "markdown",
@@ -152,25 +170,6 @@ async function formatMarkdown(source: string): Promise<string> {
   return replaced;
 }
 
-function findHtmlNodes(node: Node): HtmlNode[] {
-  const htmlNodes: HtmlNode[] = [];
-
-  const visit = (node: Node) => {
-    if (node.type === "html") {
-      htmlNodes.push(node as HtmlNode);
-    }
-    if ("children" in node) {
-      for (const child of node.children as Node[]) {
-        visit(child);
-      }
-    }
-  };
-
-  visit(node);
-
-  return htmlNodes;
-}
-
 function printDiff(filePath: string, source: string, result: string) {
   // patchの先頭のIndexとかを削除。
   const diff = createPatch(filePath, source, result).replace(
@@ -190,7 +189,18 @@ function printDiff(filePath: string, source: string, result: string) {
   console.log("=".repeat(80));
 }
 
-main().catch((e) => {
-  console.error(styleText("red", String(e)));
-  process.exit(1);
-});
+function printResult(filePath: string, source: string, result: string) {
+  if (source !== result) {
+    if (mode === "check") {
+      console.log(styleText("red", "Needs formatting"));
+    } else {
+      console.log(styleText("green", "Formatted"));
+    }
+
+    if (verbose) {
+      printDiff(filePath, source, result);
+    }
+  } else {
+    console.log(styleText("gray", "No changes"));
+  }
+}
