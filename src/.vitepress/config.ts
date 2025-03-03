@@ -14,9 +14,6 @@ export default defineConfig({
     ["link", { rel: "icon", href: "/WIP_docs/favicon.ico" }],
   ],
   cleanUrls: true,
-  markdown: {
-    breaks: true,
-  },
   themeConfig: {
     logo: "/favicon-32x32.png",
 
