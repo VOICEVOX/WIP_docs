@@ -14,6 +14,9 @@ export default defineConfig({
     ["link", { rel: "icon", href: "/WIP_docs/favicon.ico" }],
   ],
   cleanUrls: true,
+  markdown: {
+    breaks: true,
+  },
   themeConfig: {
     logo: "/favicon-32x32.png",
 
@@ -21,8 +24,8 @@ export default defineConfig({
 
     nav: [
       { text: "ホーム", link: "/" },
-      { text: "エンジン", link: "/engine/" },
-      { text: "コア", link: "/core/" },
+      { text: "エンジン", link: "/engine/quickstart" },
+      { text: "コア", link: "/core/quickstart" },
     ],
 
     sidebar: {
@@ -33,15 +36,19 @@ export default defineConfig({
       "/engine/": [
         {
           text: "エンジン",
-          link: "/engine/",
-          items: [{ text: "テスト1", link: "/engine/page01" }],
+          link: "/engine/quickstart",
+          items: [
+            { text: "クイックスタート", link: "/engine/quickstart" },
+            { text: "テスト1", link: "/engine/page01" },
+          ],
         },
       ],
       "/core/": [
         {
           text: "コア",
-          link: "/core/",
+          link: "/core/quickstart",
           items: [
+            { text: "クイックスタート", link: "/core/quickstart" },
             { text: "テスト1", link: "/core/page01" },
             { text: "ダウンローダー", link: "/core/downloader" },
           ],
