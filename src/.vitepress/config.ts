@@ -21,8 +21,8 @@ export default defineConfig({
 
     nav: [
       { text: "ホーム", link: "/" },
-      { text: "エンジン", link: "/engine/quickstart" },
-      { text: "コア", link: "/core/quickstart" },
+      { text: "エンジン", link: "/engine/" },
+      { text: "コア", link: "/core/" },
     ],
 
     sidebar: {
@@ -33,9 +33,9 @@ export default defineConfig({
       "/engine/": [
         {
           text: "エンジン",
-          link: "/engine/quickstart",
+          link: "/engine/",
           items: [
-            { text: "クイックスタート", link: "/engine/quickstart" },
+            { text: "クイックスタート", link: "/engine/" },
             { text: "テスト1", link: "/engine/page01" },
           ],
         },
@@ -43,9 +43,9 @@ export default defineConfig({
       "/core/": [
         {
           text: "コア",
-          link: "/core/quickstart",
+          link: "/core/",
           items: [
-            { text: "クイックスタート", link: "/core/quickstart" },
+            { text: "クイックスタート", link: "/core/" },
             { text: "テスト1", link: "/core/page01" },
             { text: "ダウンローダー", link: "/core/downloader" },
           ],
