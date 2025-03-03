@@ -15,8 +15,8 @@ export default defineConfig({
     returnToTopLabel: "最上部に戻る",
     sidebarMenuLabel: "メニュー",
     darkModeSwitchLabel: "外観",
-    lightModeSwitchTitle: "ライトモードに切り替える",
-    darkModeSwitchTitle: "ダークモードに切り替える",
+    lightModeSwitchTitle: "ライトテーマに切り替える",
+    darkModeSwitchTitle: "ダークテーマに切り替える",
     docFooter: {
       next: "次のページ",
       prev: "前のページ",
