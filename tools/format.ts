@@ -24,9 +24,9 @@ main().catch((e) => {
 
 async function main() {
   console.log(
-    `Mode: ${mode === "check" ? styleText("green", "Check") : styleText("red", "Write")}${
-      verbose ? " (Verbose)" : ""
-    }`,
+    `Mode: ${
+      mode === "check" ? styleText("green", "Check") : styleText("red", "Write")
+    }${verbose ? " (Verbose)" : ""}`,
   );
 
   let changedCount = 0;
