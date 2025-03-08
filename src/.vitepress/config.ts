@@ -44,6 +44,22 @@ export default defineConfig({
           items: [
             { text: "テスト1", link: "/core/page01" },
             { text: "ダウンローダー", link: "/core/downloader" },
+            {
+              text: "Rust API",
+              link: "https://voicevox.github.io/voicevox_core/apis/rust_api/voicevox_core/",
+            },
+            {
+              text: "C API",
+              link: "https://voicevox.github.io/voicevox_core/apis/c_api/voicevox__core_8h.html",
+            },
+            {
+              text: "Python API",
+              link: "https://voicevox.github.io/voicevox_core/apis/python_api/autoapi/voicevox_core/index.html",
+            },
+            {
+              text: "Java API",
+              link: "https://voicevox.github.io/voicevox_core/apis/java_api",
+            },
           ],
         },
       ],
