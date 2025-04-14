@@ -31,15 +31,15 @@ jobs:
         run: |
           pnpm install
 
-      - name: Determine base
-        id: determine_base
+      - name: Determine base URL
+        id: determine_base_url
         uses: sevenc-nanashi/voicevox-preview-pages/base@feat/base-action
         with:
           name: docs
 
       - name: Build
         run: |
-          pnpm run build --base ${{ steps.determine_base.outputs.base }}
+          pnpm run build --base ${{ steps.determine_base_url.outputs.base }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
