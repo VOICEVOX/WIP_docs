@@ -39,7 +39,7 @@ jobs:
 
       - name: Build
         run: |
-          pnpm run build --base ${{ steps.determine_base_url.outputs.base }}
+          pnpm run build --base ${{ steps.determine_base_url.outputs.base_url }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
