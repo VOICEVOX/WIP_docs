@@ -33,7 +33,7 @@ jobs:
 
       - name: Determine base URL
         id: determine_base_url
-        uses: sevenc-nanashi/voicevox-preview-pages/base@feat/base-action
+        uses: VOICEVOX/preview-pages/base@main
         with:
           name: docs
 
