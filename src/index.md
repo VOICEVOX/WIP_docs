@@ -15,3 +15,12 @@
 
 - （TODO3）
 - （TODO4）
+
+## 音声テスト
+
+<script setup>
+import mainWav from './main.wav'
+</script>
+
+ほげほげ：
+<audio :src="mainWav" controls />
