@@ -15,3 +15,8 @@
 
 - （TODO3）
 - （TODO4）
+
+## 音声テスト
+
+ほげほげ：
+<audio src="./main.wav">
