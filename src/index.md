@@ -19,4 +19,4 @@
 ## 音声テスト
 
 ほげほげ：
-<audio src="./main.wav" />
+<audio src="./main.wav" controls />
