@@ -16,5 +16,9 @@
     "prettier": "^3.5.2",
     "vitepress": "2.0.0-alpha.2",
     "vue": "^3.5.13"
+  },
+  "dependencies": {
+    "base64-js": "^1.5.1",
+    "mermaid": "^11.9.0"
   }
 }
