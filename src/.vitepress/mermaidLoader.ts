@@ -1,7 +1,7 @@
 import { toByteArray } from "base64-js";
 
 // Mermaidが使われていないページでMermaidのクライアントを読み込むのは無駄なので、
-// カスタム要素とdynamic importを使って、Mermaidが使われているページでのみ読み込むようにする。
+// カスタム要素とdynamic importを使って、mermaid-diagramが使われるまでmermaidを読み込まないようにする
 const createLoadMermaid = () => {
   let mermaid: Promise<typeof import("mermaid")> | undefined;
   return () => {
