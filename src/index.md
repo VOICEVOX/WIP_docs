@@ -15,3 +15,14 @@
 
 - （TODO3）
 - （TODO4）
+
+## Mermaid Test
+
+```mermaid
+flowchart TD
+    A[Start] --> B{Is it a good day?}
+    B -- Yes --> C[Go for a walk]
+    B -- No --> D[Stay home]
+    C --> E[Enjoy the day]
+    D --> E
+```

@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import mermaidPlugin from "./mermaidPlugin.ts";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -14,6 +15,7 @@ export default defineConfig({
     ["link", { rel: "icon", href: "/WIP_docs/favicon.ico" }],
   ],
   cleanUrls: true,
+  extends: mermaidPlugin,
   themeConfig: {
     logo: "/favicon-32x32.png",
 
