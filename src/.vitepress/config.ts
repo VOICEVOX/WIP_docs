@@ -1,9 +1,10 @@
 import { DefaultTheme, UserConfig } from "vitepress";
 import audioPlugin from "./audioPlugin.ts";
 
-// configをマージする関数。
-// (config1, config2, config3)という引数で呼び出すと、
-// `{ extends: { extends: config3, ...config2 }, ...config1 }`のようにマージされる。
+/** configをマージする関数。
+ * (config1, config2, config3)という引数で呼び出すと、
+ * `{ extends: { extends: config3, ...config2 }, ...config1 }`のようにマージされる。
+ */
 function mergeConfigs(
   ...configs: Omit<UserConfig<DefaultTheme.Config>, "extends">[]
 ): UserConfig<DefaultTheme.Config> {
