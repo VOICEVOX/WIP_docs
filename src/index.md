@@ -26,3 +26,14 @@ flowchart TD
     C --> E[Enjoy the day]
     D --> E
 ```
+
+## Mermaid Test 2
+
+```mermaid
+flowchart LR
+    A[Start] --> B{Is it a good day?}
+    B -- Yes --> C[Go for a walk]
+    B -- No --> D[Stay home]
+    C --> E[Enjoy the day]
+    D --> E
+```
