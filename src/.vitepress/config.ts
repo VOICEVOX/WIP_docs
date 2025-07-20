@@ -13,7 +13,7 @@ function mergeConfigs(
     return {
       ...config,
       markdown: {
-        // markdown.configはマージされないので、ここで明示的にマージする
+        // markdown.configはマージされないので、手動でマージする
         config(md) {
           merged.markdown?.config?.(md);
           config.markdown?.config?.(md);
