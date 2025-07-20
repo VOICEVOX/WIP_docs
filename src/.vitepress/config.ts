@@ -1,5 +1,5 @@
 import { defineConfig } from "vitepress";
-import mermaidPlugin from "./mermaidPlugin.ts";
+import mermaidPlugin from "./mermaid/plugin.ts";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
