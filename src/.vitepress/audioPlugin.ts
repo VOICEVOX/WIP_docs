@@ -20,32 +20,22 @@ export default defineConfig({
         }
 
         const src = tokens[idx].attrGet("src");
-        return `<audio controls src="${src}"></audio>`;
+        return `<audio controls src="${src}">音声ファイルを再生できません。</audio>`;
       };
     },
   },
-  async transformHtml(code, destPath, ctx) {
-    // audio要素のsrc属性に指定された音声ファイルをビルド先にコピーする
-
-    const sourcePath = `${ctx.siteConfig.srcDir}/${ctx.page}`;
-    const audios = code.matchAll(/<audio[^>]+src="([^"]+)"[^>]*>/g);
-    for (const audio of audios) {
-      const src = audio[1];
-      if (src) {
-        if (src.startsWith("http://") || src.startsWith("https://")) {
-          // URLはそのまま
-          continue;
-        } else if (src.startsWith("/")) {
-          // 一旦絶対パスは使えないことにする
-          throw new Error(
-            `音声ファイルのパスは相対パスで指定してください: ${src}`,
-          );
-        } else {
-          const srcFsPath = `${path.dirname(sourcePath)}/${src}`;
-          const destFsPath = `${path.dirname(destPath)}/${src}`;
-          await fs.promises.copyFile(srcFsPath, destFsPath);
-        }
-      }
-    }
+  // audioのsrcもVueのURL書き換えの対象にする
+  // https://github.com/vitejs/vite/discussions/14596#discussioncomment-7612494
+  vue: {
+    template: {
+      transformAssetUrls: {
+        video: ["src", "poster"],
+        source: ["src"],
+        img: ["src"],
+        image: ["xlink:href", "href"],
+        use: ["xlink:href", "href"],
+        audio: ["src"], // newly added
+      },
+    },
   },
 });
