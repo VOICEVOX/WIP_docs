@@ -1,7 +1,24 @@
-import { defineConfig } from "vitepress";
+import { DefaultTheme, UserConfig } from "vitepress";
+import audioPlugin from "./audioPlugin.ts";
+
+function mergeConfigs(
+  ...configs: Omit<UserConfig<DefaultTheme.Config>, "extends">[]
+): UserConfig<DefaultTheme.Config> {
+  const base = {} as UserConfig<DefaultTheme.Config>;
+  return configs.reduce((merged, config) => {
+    if (merged === base) {
+      return config;
+    } else {
+      return {
+        ...config,
+        extends: merged,
+      };
+    }
+  }, base);
+}
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default mergeConfigs(audioPlugin, {
   title: "VOICEVOX Docs",
   description: "無料で使える中品質なテキスト読み上げソフトウェア。",
   lang: "ja-JP",

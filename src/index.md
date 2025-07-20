@@ -18,9 +18,5 @@
 
 ## 音声テスト
 
-<script setup>
-import mainWav from './main.wav'
-</script>
-
 ほげほげ：
-<audio :src="mainWav" controls />
+![audio](./test.mp3)
