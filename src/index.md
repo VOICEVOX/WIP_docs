@@ -37,3 +37,16 @@ flowchart LR
     C --> E[Enjoy the day]
     D --> E
 ```
+
+## 音声テスト
+
+ほげほげ
+![hoge](./test.mp3)
+ふがふが
+
+## 画像テスト
+
+foo
+![foo](./dummy.webp)
+bar
+
