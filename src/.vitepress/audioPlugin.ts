@@ -1,24 +1,23 @@
-// ![audio](./hoge.mp3) で音声ファイルを置けるようにするプラグイン。
+// 画像の記法で音声ファイルを埋め込めるようにするためのVitePressプラグイン
 
 import { defineConfig } from "vitepress";
 
+const audioExtensions = ["mp3", "wav", "ogg", "flac"];
 export default defineConfig({
   markdown: {
     config: (md) => {
-      // altが"audio"の画像を<audio>要素に変換する
-
       const originalImage =
         md.renderer.rules.image ||
         ((tokens, idx, options) =>
           md.renderer.renderToken(tokens, idx, options));
 
       md.renderer.rules.image = (tokens, idx, options, env, self) => {
-        if (tokens[idx].content !== "audio") {
+        const src = tokens[idx].attrGet("src");
+        if (!src || !audioExtensions.some((ext) => src.endsWith(`.${ext}`))) {
           return originalImage(tokens, idx, options, env, self);
         }
 
-        const src = tokens[idx].attrGet("src");
-        return `<audio controls src="${src}">音声ファイルを再生できません。</audio>`;
+        return `<audio controls src="${src}">${tokens[idx].content}</audio>`;
       };
     },
   },
