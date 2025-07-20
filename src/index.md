@@ -49,4 +49,3 @@ flowchart LR
 foo
 ![foo](./dummy.webp)
 bar
-
