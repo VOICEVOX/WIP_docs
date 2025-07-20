@@ -29,7 +29,7 @@ export default defineConfig({
       transformAssetUrls: {
         audio: ["src"],
 
-        // 元の設定（ https://github.com/vuejs/core/blob/main/packages/compiler-sfc/src/template/transformAssetUrl.ts#L37 ）
+        // 元の設定（ https://github.com/vuejs/core/blob/e60edc06f29b32c8f3a44d0ab3558a0569515e8f/packages/compiler-sfc/src/template/transformAssetUrl.ts#L37 ）
         video: ["src", "poster"],
         source: ["src"],
         img: ["src"],
