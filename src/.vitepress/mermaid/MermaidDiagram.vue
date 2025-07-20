@@ -19,7 +19,8 @@ const createLoadMermaid = () => {
   };
 };
 
-// Mermaidが使われていないページでMermaidを読み込むのを防ぐために、Mermaidの読み込みを遅延させる
+// Mermaidが使われていないページでMermaidを読み込むのを防ぐために、
+// Mermaidを別のバンドルに隔離しておいて、必要になるまで読み込まないようにする。
 const loadMermaid = createLoadMermaid();
 </script>
 <script setup lang="ts">
