@@ -8,17 +8,12 @@ import audioPlugin from "./audioPlugin.ts";
 function mergeConfigs(
   ...configs: Omit<UserConfig<DefaultTheme.Config>, "extends">[]
 ): UserConfig<DefaultTheme.Config> {
-  const base = {} as UserConfig<DefaultTheme.Config>;
-  return configs.reduce((merged, config) => {
-    if (merged === base) {
-      return config;
-    } else {
-      return {
-        ...config,
-        extends: merged,
-      };
-    }
-  }, base);
+  return configs.slice(1).reduce((merged, config) => {
+    return {
+      ...config,
+      extends: merged,
+    };
+  }, configs[0]);
 }
 
 // https://vitepress.dev/reference/site-config
