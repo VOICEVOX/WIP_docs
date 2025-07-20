@@ -1,8 +1,6 @@
 // ![audio](./hoge.mp3) で音声ファイルを置けるようにするプラグイン。
 
 import { defineConfig } from "vitepress";
-import path from "node:path";
-import fs from "node:fs";
 
 export default defineConfig({
   markdown: {
@@ -29,12 +27,14 @@ export default defineConfig({
   vue: {
     template: {
       transformAssetUrls: {
+        audio: ["src"],
+
+        // 元の設定（ https://github.com/vuejs/core/blob/main/packages/compiler-sfc/src/template/transformAssetUrl.ts#L37 ）
         video: ["src", "poster"],
         source: ["src"],
         img: ["src"],
         image: ["xlink:href", "href"],
         use: ["xlink:href", "href"],
-        audio: ["src"], // newly added
       },
     },
   },
