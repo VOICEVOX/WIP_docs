@@ -1,7 +1,23 @@
-import { defineConfig } from "vitepress";
+import { DefaultTheme, UserConfig } from "vitepress";
+import audioPlugin from "./audioPlugin.ts";
+
+/** configをマージする関数。
+ * (config1, config2, config3)という引数で呼び出すと、
+ * `{ extends: { extends: config3, ...config2 }, ...config1 }`のようにマージされる。
+ */
+function mergeConfigs(
+  ...configs: Omit<UserConfig<DefaultTheme.Config>, "extends">[]
+): UserConfig<DefaultTheme.Config> {
+  return configs.slice(1).reduce((merged, config) => {
+    return {
+      ...config,
+      extends: merged,
+    };
+  }, configs[0]);
+}
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default mergeConfigs(audioPlugin, {
   title: "VOICEVOX Docs",
   description: "無料で使える中品質なテキスト読み上げソフトウェア。",
   lang: "ja-JP",
