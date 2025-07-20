@@ -5,7 +5,7 @@ import DefaultTheme from "vitepress/theme";
 import WipHeader from "./WipHeader.vue";
 import "./style.css";
 import "./fonts.css";
-import MermaidDiagram from "../MermaidDiagram.vue";
+import MermaidDiagram from "../mermaid/MermaidDiagram.vue";
 
 export default {
   extends: DefaultTheme,

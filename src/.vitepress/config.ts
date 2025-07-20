@@ -12,6 +12,13 @@ function mergeConfigs(
   return configs.slice(1).reduce((merged, config) => {
     return {
       ...config,
+      markdown: {
+        // markdown.configはマージされないので、ここで明示的にマージする
+        config(md) {
+          merged.markdown?.config?.(md);
+          config.markdown?.config?.(md);
+        },
+      },
       extends: merged,
     };
   }, configs[0]);

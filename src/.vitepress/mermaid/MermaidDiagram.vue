@@ -1,36 +1,52 @@
 <template>
-  <div class="mermaid-diagram">
-    <svg ref="svgRef" :svgId v-html="svgContent" />
-  </div>
+  <div ref="containerRef" class="mermaid-diagram" v-html="content"></div>
 </template>
 
+<script lang="ts">
+const createLoadMermaid = () => {
+  let mermaid: Promise<typeof import("mermaid")> | null = null;
+  return () => {
+    if (!mermaid) {
+      mermaid = import("mermaid").then((m) => {
+        m.default.initialize({
+          startOnLoad: false,
+          theme: "default",
+        });
+        return m;
+      });
+    }
+    return mermaid;
+  };
+};
+
+// Mermaidが使われていないページでMermaidを読み込むのを防ぐために、Mermaidの読み込みを遅延させる
+const loadMermaid = createLoadMermaid();
+</script>
 <script setup lang="ts">
 import { onMounted, ref, useId } from "vue";
-import mermaid from "mermaid";
+import { toByteArray } from "base64-js";
 
 const props = defineProps<{
-  diagram: string;
+  base64Diagram: string;
 }>();
 
-const id = useId();
-const svgId = ref(`mermaid-svg-${id}`);
-const svgRef = ref<SVGSVGElement | null>(null);
-const svgContent = ref("");
+const internalId = useId();
+const id = ref(`mermaid-svg-${internalId}`);
+const containerRef = ref<SVGSVGElement | null>(null);
+const content = ref("読み込み中... <svg></svg>");
 
 onMounted(async () => {
-  mermaid.initialize({
-    startOnLoad: false,
-    theme: "default",
-  });
+  const mermaid = await loadMermaid();
+  const diagram = new TextDecoder().decode(toByteArray(props.base64Diagram));
 
-  const { svg, bindFunctions } = await mermaid.render(
-    svgId.value,
-    props.diagram,
+  const { svg, bindFunctions } = await mermaid.default.render(
+    id.value,
+    diagram,
   );
-  svgContent.value = svg;
-  if (!svgRef.value) {
+  content.value = svg;
+  if (!containerRef.value) {
     throw new Error("SVG element is not available");
   }
-  bindFunctions?.(svgRef.value);
+  bindFunctions?.(containerRef.value);
 });
 </script>
