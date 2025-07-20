@@ -33,7 +33,7 @@ const props = defineProps<{
 const internalId = useId();
 const id = ref(`mermaid-svg-${internalId}`);
 const containerRef = ref<SVGSVGElement | null>(null);
-const content = ref("読み込み中... <svg></svg>");
+const content = ref("読み込み中...");
 
 onMounted(async () => {
   const mermaid = await loadMermaid();
