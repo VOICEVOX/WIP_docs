@@ -1,31 +1,16 @@
-import { DefaultTheme, UserConfig } from "vitepress";
-import audioPlugin from "./audioPlugin.ts";
-import mermaidPlugin from "./mermaid/plugin.ts";
-
-/** configをマージする関数。
- * (config1, config2, config3)という引数で呼び出すと、
- * `{ extends: { extends: config3, ...config2 }, ...config1 }`のようにマージされる。
- */
-function mergeConfigs(
-  ...configs: Omit<UserConfig<DefaultTheme.Config>, "extends">[]
-): UserConfig<DefaultTheme.Config> {
-  return configs.slice(1).reduce((merged, config) => {
-    return {
-      ...config,
-      markdown: {
-        // markdown.configはマージされないので、手動でマージする
-        config(md) {
-          merged.markdown?.config?.(md);
-          config.markdown?.config?.(md);
-        },
-      },
-      extends: merged,
-    };
-  }, configs[0]);
-}
+import { defineConfig } from "vitepress";
+import { audioMarkdownPlugin, audioVitepressConfig } from "./audioPlugin.ts";
+import { mermaidMarkdownPlugin } from "./mermaid/plugin.ts";
 
 // https://vitepress.dev/reference/site-config
-export default mergeConfigs(mermaidPlugin, audioPlugin, {
+export default defineConfig({
+  extends: audioVitepressConfig,
+  markdown: {
+    config: (md) => {
+      md.use(audioMarkdownPlugin).use(mermaidMarkdownPlugin);
+    },
+  },
+
   title: "VOICEVOX Docs",
   description: "無料で使える中品質なテキスト読み上げソフトウェア。",
   lang: "ja-JP",
