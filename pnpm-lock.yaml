@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      base64-js:
-        specifier: ^1.5.1
-        version: 1.5.1
       mermaid:
         specifier: ^11.9.0
         version: 11.9.0
@@ -682,9 +679,6 @@ packages:
   algoliasearch@5.20.3:
     resolution: {integrity: sha512-iNC6BGvipaalFfDfDnXUje8GUlW5asj0cTMsZJwO/0rhsyLx1L7GZFAY8wW+eQ6AM4Yge2p5GSE5hrBlfSD90Q==}
     engines: {node: '>= 14.0.0'}
-
-  base64-js@1.5.1:
-    resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
   birpc@0.2.19:
     resolution: {integrity: sha512-5WeXXAvTmitV1RqJFppT5QtUiz2p1mRSYU000Jkft5ZUCLJIk4uQriYNO50HknxKwM6jd8utNc66K1qGIwwWBQ==}
@@ -1923,8 +1917,6 @@ snapshots:
       '@algolia/requester-browser-xhr': 5.20.3
       '@algolia/requester-fetch': 5.20.3
       '@algolia/requester-node-http': 5.20.3
-
-  base64-js@1.5.1: {}
 
   birpc@0.2.19: {}
 

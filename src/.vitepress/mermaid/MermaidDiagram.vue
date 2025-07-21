@@ -25,10 +25,9 @@ const loadMermaid = createLoadMermaid();
 </script>
 <script setup lang="ts">
 import { onMounted, ref, useId } from "vue";
-import { toByteArray } from "base64-js";
 
 const props = defineProps<{
-  base64Diagram: string;
+  diagram: string;
 }>();
 
 const internalId = useId();
@@ -38,11 +37,9 @@ const content = ref("読み込み中...");
 
 onMounted(async () => {
   const mermaid = await loadMermaid();
-  const diagram = new TextDecoder().decode(toByteArray(props.base64Diagram));
-
   const { svg, bindFunctions } = await mermaid.default.render(
     id.value,
-    diagram,
+    props.diagram,
   );
   content.value = svg;
   if (!containerRef.value) {

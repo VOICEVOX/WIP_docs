@@ -3,7 +3,6 @@
 // VitePressのMarkdownレンダラーを拡張して、MermaidのコードブロックをMermaidDiagram要素に変換する。
 // VitePressのテーマでMermaidDiagramコンポーネントを登録しておく（.vitepress/theme/index.tsを参照）。
 
-import { fromByteArray } from "base64-js";
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
@@ -22,10 +21,17 @@ export default defineConfig({
         }
 
         const code = tokens[idx].content.trim();
-        const encoded = new TextEncoder().encode(code);
-        // HTMLエスケープ周りが面倒なので、Base64を使う
-        return `<ClientOnly><MermaidDiagram base64Diagram="${fromByteArray(encoded)}"></MermaidDiagram></ClientOnly>`;
+        return `<ClientOnly><MermaidDiagram diagram="${escapeHtml(code)}"></MermaidDiagram></ClientOnly>`;
       };
     },
   },
 });
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
