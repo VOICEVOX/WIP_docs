@@ -46,7 +46,7 @@ onMounted(async () => {
   );
   content.value = svg;
   if (!containerRef.value) {
-    throw new Error("SVG element is not available");
+    throw new Error("Container element is not available");
   }
   bindFunctions?.(containerRef.value);
 });
