@@ -1,8 +1,7 @@
 // Mermaidを読み込むためのVitePressプラグイン。
 //
-// # 大まかな仕組み
-// - VitePressのMarkdownレンダラーを拡張して、MermaidのコードブロックをMermaidDiagram要素に変換する。
-// - VitePressのテーマでMermaidDiagramコンポーネントを登録しておく（.vitepress/theme/index.tsを参照）。
+// VitePressのMarkdownレンダラーを拡張して、MermaidのコードブロックをMermaidDiagram要素に変換する。
+// VitePressのテーマでMermaidDiagramコンポーネントを登録しておく（.vitepress/theme/index.tsを参照）。
 
 import { fromByteArray } from "base64-js";
 import { defineConfig } from "vitepress";
