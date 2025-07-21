@@ -3,7 +3,11 @@
 </template>
 
 <script lang="ts">
-const createLoadMermaid = () => {
+// Mermaidが使われていないページでMermaidを読み込むのを防ぐために、
+// Mermaidを別のバンドルに隔離しておいて、必要になるまで読み込まないようにする。
+const loadMermaid = createLoadMermaid();
+
+function createLoadMermaid() {
   let mermaid: Promise<typeof import("mermaid")> | null = null;
   return () => {
     if (!mermaid) {
@@ -17,11 +21,7 @@ const createLoadMermaid = () => {
     }
     return mermaid;
   };
-};
-
-// Mermaidが使われていないページでMermaidを読み込むのを防ぐために、
-// Mermaidを別のバンドルに隔離しておいて、必要になるまで読み込まないようにする。
-const loadMermaid = createLoadMermaid();
+}
 </script>
 <script setup lang="ts">
 import { onMounted, ref, useId } from "vue";
