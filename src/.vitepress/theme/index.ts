@@ -5,6 +5,7 @@ import DefaultTheme from "vitepress/theme";
 import WipHeader from "./WipHeader.vue";
 import "./style.css";
 import "./fonts.css";
+import MermaidDiagram from "../mermaid/MermaidDiagram.vue";
 
 export default {
   extends: DefaultTheme,
@@ -13,7 +14,7 @@ export default {
       "layout-top": () => h(WipHeader),
     });
   },
-  enhanceApp() {
-    // ...
+  enhanceApp(ctx) {
+    ctx.app.component("MermaidDiagram", MermaidDiagram);
   },
 } satisfies Theme;
