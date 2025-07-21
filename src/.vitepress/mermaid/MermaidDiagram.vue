@@ -31,14 +31,14 @@ const props = defineProps<{
 }>();
 
 const internalId = useId();
-const id = ref(`mermaid-svg-${internalId}`);
+const id = `mermaid-svg-${internalId}`;
 const containerRef = ref<SVGSVGElement | null>(null);
 const content = ref("読み込み中...");
 
 onMounted(async () => {
   const mermaid = await loadMermaid();
   const { svg, bindFunctions } = await mermaid.default.render(
-    id.value,
+    id,
     props.diagram,
   );
   content.value = svg;
